@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <title>Ticketdorama</title>
+  <title>Ticketsdorama</title>
   <meta charset="UTF-8" />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
@@ -14,21 +14,7 @@
   <link rel="icon" href="/favicon-16x16.png" sizes="16x16" type="image/png">
   <link rel="icon" href="/favicon.ico">
   <style>
-    /* 2. 強制縮短距離：消除所有頂部間距 */
-    body { 
-        padding-top: 0 !important; 
-        margin-top: 0 !important; 
-    }
-    .container { 
-        margin-top: 0 !important; 
-        padding-top: 5px !important; 
-    }
-    h1, h2 { 
-        margin-top: 0 !important; 
-        padding-top: 0 !important; 
-    }
-
-    /* 以下保留您原本的所有 Style 設定，請勿更動原本 20 行之後的內容 */
+    /* Search button unified styling */
     .search-engine-btn {
       border-color: #000 !important;
       color: #000 !important;
@@ -107,7 +93,7 @@
 <body>
   <div class="container py-4">
   <div id="message"></div>
-  <h2>Ticketdorama <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-ticket-perforated" viewBox="0 0 16 16" style="vertical-align: -0.125em;"><path d="M4 4.85v.9h1v-.9zm7 0v.9h1v-.9zm-7 1.8v.9h1v-.9zm7 0v.9h1v-.9zm-7 1.8v.9h1v-.9zm7 0v.9h1v-.9zm-7 1.8v.9h1v-.9zm7 0v.9h1v-.9z"/><path d="M1.5 3A1.5 1.5 0 0 0 0 4.5V6a.5.5 0 0 0 .5.5 1.5 1.5 0 1 1 0 3 .5.5 0 0 0-.5.5v1.5A1.5 1.5 0 0 0 1.5 13h13a1.5 1.5 0 0 0 1.5-1.5V10a.5.5 0 0 0-.5-.5 1.5 1.5 0 0 1 0-3A.5.5 0 0 0 16 6V4.5A1.5 1.5 0 0 0 14.5 3zM1 4.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v1.05a2.5 2.5 0 0 0 0 4.9v1.05a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-1.05a2.5 2.5 0 0 0 0-4.9z"/></svg> - </h2>
+  <h2>Tickets Hunter <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-ticket-perforated" viewBox="0 0 16 16" style="vertical-align: -0.125em;"><path d="M4 4.85v.9h1v-.9zm7 0v.9h1v-.9zm-7 1.8v.9h1v-.9zm7 0v.9h1v-.9zm-7 1.8v.9h1v-.9zm7 0v.9h1v-.9zm-7 1.8v.9h1v-.9zm7 0v.9h1v-.9z"/><path d="M1.5 3A1.5 1.5 0 0 0 0 4.5V6a.5.5 0 0 0 .5.5 1.5 1.5 0 1 1 0 3 .5.5 0 0 0-.5.5v1.5A1.5 1.5 0 0 0 1.5 13h13a1.5 1.5 0 0 0 1.5-1.5V10a.5.5 0 0 0-.5-.5 1.5 1.5 0 0 1 0-3A.5.5 0 0 0 16 6V4.5A1.5 1.5 0 0 0 14.5 3zM1 4.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v1.05a2.5 2.5 0 0 0 0 4.9v1.05a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-1.05a2.5 2.5 0 0 0 0-4.9z"/></svg> - 多平台搶票自動化系統</h2>
   <div class="row g-3">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
@@ -155,16 +141,6 @@
     <div class="tab-content" id="myTabContent">
       <!-- tab 1 -->
       <div class="tab-pane fade show active" id="readme-tab-pane" role="tabpanel" aria-labelledby="readme-tab" tabindex="0">
-
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<hr/>
-
-
 </div>
 
       <!-- tab 2 -->
@@ -186,13 +162,28 @@
                     <h6><strong>台灣地區</strong></h6>
                     <div class="mb-3">
                       <button type="button" class="btn btn-outline-primary btn-sm me-2 mb-2" onclick="fillHomepage('https://tixcraft.com')">Tixcraft 拓元售票</button>
+                      <button type="button" class="btn btn-outline-primary btn-sm me-2 mb-2" onclick="fillHomepage('https://www.teamear.com')">添翼 Teamear</button>
+                      <button type="button" class="btn btn-outline-primary btn-sm me-2 mb-2" onclick="fillHomepage('https://www.indievox.com')">Indievox 獨立音樂</button>
                       <button type="button" class="btn btn-outline-primary btn-sm me-2 mb-2" onclick="fillHomepage('https://kktix.com')">KKTIX</button>
                       <button type="button" class="btn btn-outline-primary btn-sm me-2 mb-2" onclick="fillHomepage('https://ticket.ibon.com.tw')">iBon</button>
+                      <button type="button" class="btn btn-outline-primary btn-sm me-2 mb-2" onclick="fillHomepage('https://www.famiticket.com.tw')">FamiTicket 全網</button>
                       <button type="button" class="btn btn-outline-primary btn-sm me-2 mb-2" onclick="fillHomepage('https://kham.com.tw')">Kham 寬宏售票</button>
+                      <button type="button" class="btn btn-outline-primary btn-sm me-2 mb-2" onclick="fillHomepage('https://ticket.com.tw')">Ticket.com.tw 年代</button>
+                      <button type="button" class="btn btn-outline-primary btn-sm me-2 mb-2" onclick="fillHomepage('https://tickets.udnfunlife.com')">UDN售票網</button>
                       <button type="button" class="btn btn-outline-primary btn-sm me-2 mb-2" onclick="fillHomepage('https://ticketplus.com.tw')">TicketPlus 遠大</button>
+                      <button type="button" class="btn btn-outline-primary btn-sm me-2 mb-2" onclick="fillHomepage('https://tickets.funone.io')">FunOne Tickets</button>
+                      <button type="button" class="btn btn-outline-primary btn-sm me-2 mb-2" onclick="fillHomepage('https://go.fansi.me')">FANSI GO</button>
                     </div>
 
-        
+                    <h6><strong>海外地區</strong></h6>
+                    <div class="mb-0">
+                      <button type="button" class="btn btn-outline-secondary btn-sm me-2 mb-2" onclick="fillHomepage('https://ticket.urbtix.hk')">Urbtix 城市</button>
+                      <button type="button" class="btn btn-outline-secondary btn-sm me-2 mb-2" onclick="fillHomepage('https://www.cityline.com')">Cityline 買飛</button>
+                      <button type="button" class="btn btn-outline-secondary btn-sm me-2 mb-2" onclick="fillHomepage('https://hkticketing.com')">HKTicketing 快達票</button>
+                      <button type="button" class="btn btn-outline-secondary btn-sm me-2 mb-2" onclick="fillHomepage('https://www.galaxymacau.com')">澳門銀河</button>
+                      <button type="button" class="btn btn-outline-secondary btn-sm me-2 mb-2" onclick="fillHomepage('https://www.ticketmaster.sg')">TicketMaster Singapore</button>
+                      <button type="button" class="btn btn-outline-secondary btn-sm me-2 mb-2" onclick="fillHomepage('https://www.ticketek.com.au')">Ticketek Australia</button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -705,6 +696,10 @@
               適用於所有平台的優惠代碼（優惠序號、加購序號、會員序號等），程式會自動偵測並填入所有符合的輸入欄位。目前支援：TicketPlus、KKTIX
             </small>
           </div>
+        </div>
+
+      </div>
+
       <!-- tab 5 -->
       <div class="tab-pane fade" id="autofill-tab-pane" role="tabpanel" aria-labelledby="autofill-tab" tabindex="2">
 
@@ -791,20 +786,6 @@
         </div>
 
         <div class="row mb-3">
-          <label for="kham_account" class="col-sm-2 col-form-label">寬宏</label>
-          <div class="col-sm-10 col-lg-8 col-xl-6">
-            <form autocomplete="off">
-            <div class="input-group">
-              <span class="input-group-text" id="inputGroup-sizing-default">帳號</span>
-              <input type="text" id="kham_account" value="" class="form-control" autocomplete="username">
-              <span class="input-group-text" id="inputGroup-sizing-default">密碼</span>
-              <input type="password" id="kham_password" value="" class="form-control" autocomplete="current-password">
-            </div>
-            </form>
-          </div>
-        </div>
-
-        <div class="row mb-3">
           <label for="ticketplus_account" class="col-sm-2 col-form-label">遠大</label>
           <div class="col-sm-10 col-lg-8 col-xl-6">
             <form autocomplete="off">
@@ -815,29 +796,6 @@
               <input type="password" id="ticketplus_password" value="" class="form-control" autocomplete="current-password">
             </div>
             </form>
-          </div>
-        </div>
-
-        <div class="row mb-3">
-          <label for="cityline_account" class="col-sm-2 col-form-label">cityline</label>
-          <div class="col-sm-10 col-lg-8 col-xl-6">
-            <div class="input-group">
-              <span class="input-group-text" id="inputGroup-sizing-default">帳號</span>
-              <input type="text" id="cityline_account" value="" class="form-control" placeholder="請輸入 Email 帳號">
-            </div>
-          </div>
-        </div>
-
-        <div class="row mb-3 bd-callout bd-callout-warning" id="cityline-login-hint" style="display: none;">
-          <div class="col">
-            <strong>⚠️ Cityline 登入說明（半自動模式）：</strong>
-            <ol class="mb-0 mt-2">
-              <li>程式會自動填入帳號（Email）</li>
-              <li>到信箱收取驗證碼並輸入</li>
-              <li>完成 Cloudflare Turnstile 驗證</li>
-              <li>驗證完成後，手動點擊「登入」按鈕</li>
-              <li>登入成功後，程式會自動偵測並繼續執行搶票流程</li>
-            </ol>
           </div>
         </div>
 
@@ -954,6 +912,15 @@
                         <li>秒數關鍵字會在每分鐘的指定秒數觸發，適合做週期性控制</li>
                       </ul>
                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
     </div>
     <hr/>
     <div class="col-12">
