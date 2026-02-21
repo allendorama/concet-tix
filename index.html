@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <title>Ticketdorama </title>
+  <title>Ticketdorama</title>
   <meta charset="UTF-8" />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
@@ -14,7 +14,21 @@
   <link rel="icon" href="/favicon-16x16.png" sizes="16x16" type="image/png">
   <link rel="icon" href="/favicon.ico">
   <style>
-    /* Search button unified styling */
+    /* 2. 強制縮短距離：消除所有頂部間距 */
+    body { 
+        padding-top: 0 !important; 
+        margin-top: 0 !important; 
+    }
+    .container { 
+        margin-top: 0 !important; 
+        padding-top: 5px !important; 
+    }
+    h1, h2 { 
+        margin-top: 0 !important; 
+        padding-top: 0 !important; 
+    }
+
+    /* 以下保留您原本的所有 Style 設定，請勿更動原本 20 行之後的內容 */
     .search-engine-btn {
       border-color: #000 !important;
       color: #000 !important;
