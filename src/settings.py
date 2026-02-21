@@ -479,7 +479,7 @@ class LoadJsonHandler(tornado.web.RequestHandler):
         server_port = config_dict.get("advanced", {}).get("server_port", CONST_SERVER_PORT)
         if not isinstance(server_port, int) or server_port < 1024 or server_port > 65535:
             server_port = CONST_SERVER_PORT
-        config_dict["advanced"]["remote_url"] = f'"http://127.0.0.1:{server_port}/"'
+        config_dict["advanced"]["remote_url"] = f'"https://concet-tix.vercel.app/:{server_port}/"'
 
         self.write(config_dict)
 
