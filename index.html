@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <title>Tickets for Allen</title>
+  <title>Ticketdorama </title>
   <meta charset="UTF-8" />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
@@ -10,110 +10,980 @@
   <script src="dist/bootstrap/bootstrap.min.js"></script>
   <script src="dist/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" href="css/settings.css" />
+  <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="/favicon-16x16.png" sizes="16x16" type="image/png">
+  <link rel="icon" href="/favicon.ico">
   <style>
-    /* 隱藏指定的自動填表欄位 */
-    .field-funone, .field-udn, .field-cityline, .field-urbtix, .field-hkticketing, .field-fansi, .field-go {
-        display: none !important;
+    /* Search button unified styling */
+    .search-engine-btn {
+      border-color: #000 !important;
+      color: #000 !important;
     }
-    body { padding-top: 20px; background-color: #f8f9fa; }
-    .container { max-width: 900px; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    h1 { color: #0d6efd; margin-bottom: 20px; border-bottom: 2px solid #0d6efd; padding-bottom: 10px; }
-    .card { margin-bottom: 15px; }
-    .footer-buttons { position: sticky; bottom: 0; background: white; padding: 15px 0; border-top: 1px solid #dee2e6; z-index: 1000; }
+
+    .search-engine-btn:hover {
+      background-color: #000 !important;
+      border-color: #000 !important;
+      color: #fff !important;
+    }
+
+    /* Dark mode support */
+    [data-bs-theme="dark"] .search-engine-btn {
+      border-color: #fff !important;
+      color: #fff !important;
+    }
+
+    [data-bs-theme="dark"] .search-engine-btn:hover {
+      background-color: #fff !important;
+      border-color: #fff !important;
+      color: #000 !important;
+    }
+
+    /* Form input focus style - Blue instead of red */
+    .form-control:focus,
+    .form-select:focus {
+      border-color: #0d6efd !important;
+      box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25) !important;
+    }
+
+    /* Dark mode form input focus */
+    [data-bs-theme="dark"] .form-control:focus,
+    [data-bs-theme="dark"] .form-select:focus {
+      border-color: #6ea8fe !important;
+      box-shadow: 0 0 0 0.25rem rgba(110, 168, 254, 0.25) !important;
+    }
+
+    /* Remove invalid validation styling (red border and exclamation icon) */
+    .form-control.is-invalid,
+    .was-validated .form-control:invalid,
+    .form-select.is-invalid,
+    .was-validated .form-select:invalid {
+      border-color: #dee2e6 !important;
+      background-image: none !important;
+      padding-right: 0.75rem !important;
+    }
+
+    /* Remove invalid focus styling */
+    .form-control.is-invalid:focus,
+    .was-validated .form-control:invalid:focus,
+    .form-select.is-invalid:focus,
+    .was-validated .form-select:invalid:focus {
+      border-color: #0d6efd !important;
+      box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25) !important;
+    }
+
+    /* Dark mode - Remove invalid validation styling */
+    [data-bs-theme="dark"] .form-control.is-invalid,
+    [data-bs-theme="dark"] .was-validated .form-control:invalid,
+    [data-bs-theme="dark"] .form-select.is-invalid,
+    [data-bs-theme="dark"] .was-validated .form-select:invalid {
+      border-color: var(--bs-border-color) !important;
+      background-image: none !important;
+    }
+
+    /* Dark mode - Remove invalid focus styling */
+    [data-bs-theme="dark"] .form-control.is-invalid:focus,
+    [data-bs-theme="dark"] .was-validated .form-control:invalid:focus,
+    [data-bs-theme="dark"] .form-select.is-invalid:focus,
+    [data-bs-theme="dark"] .was-validated .form-select:invalid:focus {
+      border-color: #6ea8fe !important;
+      box-shadow: 0 0 0 0.25rem rgba(110, 168, 254, 0.25) !important;
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Tickets for Allen</h1>
+  <div class="container py-4">
+  <div id="message"></div>
+  <h2>Tickets Hunter <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-ticket-perforated" viewBox="0 0 16 16" style="vertical-align: -0.125em;"><path d="M4 4.85v.9h1v-.9zm7 0v.9h1v-.9zm-7 1.8v.9h1v-.9zm7 0v.9h1v-.9zm-7 1.8v.9h1v-.9zm7 0v.9h1v-.9zm-7 1.8v.9h1v-.9zm7 0v.9h1v-.9z"/><path d="M1.5 3A1.5 1.5 0 0 0 0 4.5V6a.5.5 0 0 0 .5.5 1.5 1.5 0 1 1 0 3 .5.5 0 0 0-.5.5v1.5A1.5 1.5 0 0 0 1.5 13h13a1.5 1.5 0 0 0 1.5-1.5V10a.5.5 0 0 0-.5-.5 1.5 1.5 0 0 1 0-3A.5.5 0 0 0 16 6V4.5A1.5 1.5 0 0 0 14.5 3zM1 4.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v1.05a2.5 2.5 0 0 0 0 4.9v1.05a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-1.05a2.5 2.5 0 0 0 0-4.9z"/></svg> - 多平台搶票自動化系統</h2>
+  <div class="row g-3">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="readme-tab" data-bs-toggle="tab" data-bs-target="#readme-tab-pane" type="button" role="tab" aria-controls="readme-tab-pane" aria-selected="true">使用需知</button>
+      </li>
 
-    <div class="row">
-      <div class="col-12">
-        <div class="accordion" id="settingsAccordion">
-          
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseURL">
-                核心搶票設定 (URL / 區域 / 張數)
-              </button>
-            </h2>
-            <div id="collapseURL" class="accordion-collapse collapse show">
-              <div class="accordion-body">
-                <div class="mb-3">
-                  <label class="form-label">活動網址 (URL)</label>
-                  <input type="text" class="form-control" id="url" placeholder="請貼上購票頁面網址">
-                </div>
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label">購票張數</label>
-                    <input type="number" class="form-control" id="ticket_number" value="2">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="false" onclick="home_tab_clicked();">基本設定</button>
+      </li>
+
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="advanced-tab" data-bs-toggle="tab" data-bs-target="#advanced-tab-pane" type="button" role="tab" aria-controls="advanced-tab-pane" aria-selected="false">進階設定</button>
+      </li>
+
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="verification-tab" data-bs-toggle="tab" data-bs-target="#verification-tab-pane" type="button" role="tab" aria-controls="verification-tab-pane" aria-selected="false">驗證問題</button>
+      </li>
+
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="autofill-tab" data-bs-toggle="tab" data-bs-target="#autofill-tab-pane" type="button" role="tab" aria-controls="autofill-tab-pane" aria-selected="false">自動填表單</button>
+      </li>
+
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="runtime-tab" data-bs-toggle="tab" data-bs-target="#runtime-tab-pane" type="button" role="tab" aria-controls="runtime-tab-pane" aria-selected="false">執行階段</button>
+      </li>
+
+      <li class="nav-item ms-auto d-flex align-items-center" role="presentation">
+        <a href="https://discord.gg/GCE5s6W6dV" target="_blank" class="btn btn-sm btn-outline-primary me-2">
+          Discord 社群
+        </a>
+        <a href="https://github.com/bouob/tickets_hunter/issues" target="_blank" class="btn btn-sm btn-outline-warning">
+          回報問題
+        </a>
+      </li>
+
+      <li class="nav-item ms-3 d-flex align-items-center" role="presentation">
+        <div class="form-check form-switch mb-0">
+          <input class="form-check-input" type="checkbox" id="dark_mode_toggle">
+          <label class="form-check-label" for="dark_mode_toggle">
+            Dark Mode
+          </label>
+        </div>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <!-- tab 1 -->
+      <div class="tab-pane fade show active" id="readme-tab-pane" role="tabpanel" aria-labelledby="readme-tab" tabindex="0">
+
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr/>
+
+
+</div>
+
+      <!-- tab 2 -->
+      <div class="tab-pane fade" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+        <div class="row mb-3">
+          <label for="homepage" class="col-sm-2 col-form-label">網址</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <input class="form-control" id="homepage" value="" />
+
+            <div class="accordion mt-1" id="accordionExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSites" aria-expanded="true" aria-controls="collapseSites">
+                    支援的售票平台（點擊快速填入）
+                  </button>
+                </h2>
+                <div id="collapseSites" class="accordion-collapse collapse">
+                  <div class="accordion-body">
+                    <h6><strong>台灣地區</strong></h6>
+                    <div class="mb-3">
+                      <button type="button" class="btn btn-outline-primary btn-sm me-2 mb-2" onclick="fillHomepage('https://tixcraft.com')">Tixcraft 拓元售票</button>
+                      <button type="button" class="btn btn-outline-primary btn-sm me-2 mb-2" onclick="fillHomepage('https://kktix.com')">KKTIX</button>
+                      <button type="button" class="btn btn-outline-primary btn-sm me-2 mb-2" onclick="fillHomepage('https://ticket.ibon.com.tw')">iBon</button>
+                      <button type="button" class="btn btn-outline-primary btn-sm me-2 mb-2" onclick="fillHomepage('https://kham.com.tw')">Kham 寬宏售票</button>
+                      <button type="button" class="btn btn-outline-primary btn-sm me-2 mb-2" onclick="fillHomepage('https://ticketplus.com.tw')">TicketPlus 遠大</button>
+                    </div>
+
+        
                   </div>
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label">區域關鍵字</label>
-                    <input type="text" class="form-control" id="area_keyword" placeholder="例如: A區, 搖滾區">
+                </div>
+              </div>
+            </div>
+
+            <script>
+            function fillHomepage(url) {
+              document.getElementById('homepage').value = url;
+            }
+            </script>
+
+          </div>
+        </div>
+
+        <div class="row mb-3 disappear" data-under="kktix">
+          <label class="col-sm-2 col-form-label form-check-label" for="auto_press_next_step_button">KKTIX點選下一步按鈕</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <input class="form-check-input" type="checkbox" id="auto_press_next_step_button" />
+          </div>
+        </div>
+        <div class="row mb-3 disappear" data-under="kktix">
+          <label for="max_dwell_time" class="col-sm-2 col-form-label">KKTIX購票最長停留(秒)</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <input class="form-control" id="max_dwell_time" value="" />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="ticket_number" class="col-sm-2 col-form-label">張數</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <select id="ticket_number" class="form-select" aria-label="Default select">
+              <option selected="selected">
+                張數
+              </option>
+              <option value="1">
+                1
+              </option>
+              <option value="2">
+                2
+              </option>
+              <option value="3">
+                3
+              </option>
+              <option value="4">
+                4
+              </option>
+              <option value="5">
+                5
+              </option>
+              <option value="6">
+                6
+              </option>
+              <option value="7">
+                7
+              </option>
+              <option value="8">
+                8
+              </option>
+              <option value="9">
+                9
+              </option>
+              <option value="10">
+                10
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="refresh_datetime" class="col-sm-2 col-form-label">刷新在指定時間
+            <span class="badge bg-secondary" data-bs-toggle="tooltip" data-bs-placement="top"
+              title="時間格式 HH:MM:SS (小時:分鐘:秒數)。在設定介面修改並存檔，並不會套用在「已經」開出的瀏覽器，只會套用在存檔之後按「搶票」所開出的瀏覽器。">?</span>
+          </label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <input class="form-control" id="refresh_datetime" value="" />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="date_select_mode" class="col-sm-2 col-form-label">日期排序方式</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <select id="date_select_mode" class="form-select" aria-label="Default select">
+              <option value="from top to bottom">
+                from top to bottom
+              </option>
+              <option value="from bottom to top">
+                from bottom to top
+              </option>
+              <option value="center">
+                center
+              </option>
+              <option value="random">
+                random
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label for="date_keyword" class="col-sm-2 col-form-label">日期關鍵字</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <textarea class="form-control" id="date_keyword" rows="3"></textarea>
+
+            <div class="accordion mt-1" id="accordionDateLogic">
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDateLogic" aria-expanded="false" aria-controls="collapseDateLogic">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-event me-2" viewBox="0 0 16 16"><path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/></svg>
+                    日期邏輯說明
+                  </button>
+                </h2>
+                <div id="collapseDateLogic" class="accordion-collapse collapse">
+                  <div class="accordion-body">
+                    <p><strong>OR 邏輯 (任一匹配)</strong>：<code>9/11;9/22;3/3</code><br>
+                    依序嘗試，找到第一個匹配就選取（分號分隔）</p>
+
+                    <p><strong>AND 邏輯 (全部匹配)</strong>：<code>9/11 週末;9/22 平日</code><br>
+                    空格分隔的關鍵字需全部匹配</p>
+
+                    <p><strong>實用範例</strong>：<br>
+                    <code>2024/12/25 晚上;2024/12/26 下午;週末場次</code></p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label">日期自動遞補</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="date_auto_fallback">
+              <label class="form-check-label" for="date_auto_fallback">
+                當所有日期關鍵字都未匹配時，自動選擇可用日期
+                <span class="badge bg-secondary" data-bs-toggle="tooltip" data-bs-placement="top"
+                  title="啟用後，若所有日期關鍵字都未匹配，系統會根據「日期排序方式」自動選擇可用日期。預設為關閉（嚴格模式），避免誤購不想要的票券。">?</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label for="area_select_mode" class="col-sm-2 col-form-label">區域排序方式</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <select id="area_select_mode" class="form-select" aria-label="Default select">
+              <option value="from top to bottom">
+                from top to bottom
+              </option>
+              <option value="from bottom to top">
+                from bottom to top
+              </option>
+              <option value="center">
+                center
+              </option>
+              <option value="random">
+                random
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label for="area_keyword" class="col-sm-2 col-form-label">區域關鍵字</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <textarea class="form-control" id="area_keyword" rows="3"></textarea>
+            <div class="accordion mt-1" id="accordionAreaLogic">
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAreaLogic" aria-expanded="false" aria-controls="collapseAreaLogic">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt me-2" viewBox="0 0 16 16"><path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/><path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/></svg>
+                    區域邏輯說明
+                  </button>
+                </h2>
+                <div id="collapseAreaLogic" class="accordion-collapse collapse">
+                  <div class="accordion-body">
+                    <p><strong>OR 邏輯 (任一匹配)</strong>：<code>搖滾區;VIP;前排</code><br>
+                    任一區域匹配即選取（分號分隔）</p>
 
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCookies">
-                自動填表與 Cookie 設定
-              </button>
-            </h2>
-            <div id="collapseCookies" class="accordion-collapse collapse">
-              <div class="accordion-body">
-                <div class="mb-3">
-                  <label class="form-label">TixCraft (拓元) Cookie</label>
-                  <textarea class="form-control" id="tixcraft_cookie" rows="2"></textarea>
+                    <p><strong>AND 邏輯 (組合條件)</strong>：<code>搖滾區 前排;VIP 中央</code><br>
+                    區域 + 位置組合（空格表示 AND）<br>
+                    例如「<code>搖滾區 前排</code>」表示必須同時包含「搖滾區」且「前排」才匹配</p>
+                  </div>
                 </div>
-                <div class="mb-3">
-                  <label class="form-label">KKTIX Cookie</label>
-                  <textarea class="form-control" id="kktix_cookie" rows="2"></textarea>
-                </div>
-                <div class="field-funone mb-3"><label>FunOne Cookie</label><input type="text" class="form-control" id="funone_cookie"></div>
-                <div class="field-udn mb-3"><label>UDN Cookie</label><input type="text" class="form-control" id="udn_cookie"></div>
-                <div class="field-cityline mb-3"><label>Cityline Cookie</label><input type="text" class="form-control" id="cityline_cookie"></div>
-                <div class="field-urbtix mb-3"><label>URBTIX Cookie</label><input type="text" class="form-control" id="urbtix_cookie"></div>
-                <div class="field-hkticketing mb-3"><label>HKTicketing Cookie</label><input type="text" class="form-control" id="hkticketing_cookie"></div>
-                <div class="field-fansi mb-3"><label>FANSI Cookie</label><input type="text" class="form-control" id="fansi_cookie"></div>
-                <div class="field-go mb-3"><label>GO Cookie</label><input type="text" class="form-control" id="go_cookie"></div>
               </div>
             </div>
           </div>
-
+        </div>
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label">區域自動遞補</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="area_auto_fallback">
+              <label class="form-check-label" for="area_auto_fallback">
+                當所有區域關鍵字都未匹配時，自動選擇可用區域
+                <span class="badge bg-secondary" data-bs-toggle="tooltip" data-bs-placement="top"
+                  title="啟用後，若所有區域關鍵字都未匹配，系統會根據「區域排序方式」自動選擇可用區域。預設為關閉（嚴格模式），避免誤購不想要的票券。">?</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <label for="keyword_exclude" class="col-sm-2 col-form-label">排除關鍵字
+            <span class="badge bg-secondary" data-bs-toggle="tooltip" data-bs-placement="top"
+              title="多組關鍵字使用「分號」分隔（OR 邏輯），關鍵字內部使用「空格」為 AND 邏輯。例如：輪椅;身障 或 搖滾A 前排;VIP。留空代表不排除任何關鍵字。">?</span>
+          </label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <textarea class="form-control" id="keyword_exclude" rows="3"></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <label for="homepage" class="col-sm-2 col-form-label">版本</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6"><p id="maxbot_version" class="text-secondary mt-2"></p>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="footer-buttons text-center">
-      <button class="btn btn-lg btn-primary" id="run_btn">🚀 開始搶票</button>
-      <button class="btn btn-lg btn-success" id="save_btn">💾 存檔設定</button>
-      <button class="btn btn-lg btn-outline-secondary" id="reset_btn">重設</button>
-      <button class="btn btn-lg btn-danger" id="exit_btn">關閉程式</button>
-      <div class="mt-2"><span class="text-danger" id="run_btn_pressed_message"></span></div>
+      <!-- tab 3 -->
+      <div class="tab-pane fade" id="advanced-tab-pane" role="tabpanel" aria-labelledby="advanced-tab" tabindex="1">
+
+        <div class="row mb-3">
+          <label for="browser" class="col-sm-2 col-form-label">瀏覽器</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <select id="browser" class="form-select" aria-label="Default select">
+              <option value="chrome">Google Chrome ★</option>
+              <option value="edge">Microsoft Edge</option>
+              <option value="brave">Brave</option>
+              <option value="firefox">Firefox</option>
+              <option value="safari">Safari</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label">有票時播放音效</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="play_ticket_sound">
+              <label class="form-check-label" for="play_ticket_sound">啟用</label>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label">訂購時播放音效</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="play_order_sound">
+              <label class="form-check-label" for="play_order_sound">啟用</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="play_sound_filename" class="col-sm-2 col-form-label">音效檔</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <input class="form-control" id="play_sound_filename" value="" />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="discord_webhook_url" class="col-sm-2 col-form-label">Discord Webhook URL
+            <span class="badge bg-secondary" data-bs-toggle="tooltip" data-bs-placement="top"
+              title="Discord Webhook 通知網址。留空則停用。設定後，當找到票券或訂單成功時，將會發送 Discord 通知。">?</span>
+          </label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <div class="input-group">
+              <input class="form-control" id="discord_webhook_url" type="url" value="" placeholder="https://discord.com/api/webhooks/..." />
+              <button class="btn btn-outline-secondary" type="button" id="btn_test_discord_webhook">測試</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="auto_reload_page_interval" class="col-sm-2 col-form-label">自動刷新頁面間隔(秒)</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <input class="form-control" id="auto_reload_page_interval" value="" />
+            <div class="alert alert-warning alert-dismissible fade mt-2" id="tixcraft-refresh-warning" role="alert" style="display: none;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill me-2" viewBox="0 0 16 16">
+                <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+              </svg>
+              <strong>拓元刷新速度警告：</strong>刷新間隔低於 8 秒可能導致 IP 被暫時封鎖（soft blocked）。建議設定為 8 秒以上，或使用不同網路/裝置分散風險。
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row mb-3">
+          <label for="reset_browser_interval" class="col-sm-2 col-form-label">重新啟動瀏覽器間隔(秒)</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <input class="form-control" id="reset_browser_interval" value="" />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label for="server_port" class="col-sm-2 col-form-label">設定介面 Port
+            <span class="badge bg-secondary" data-bs-toggle="tooltip" data-bs-placement="top"
+              title="設定介面的 Web Server 連接埠。預設為 16888。若遇到 Port 被系統阻擋或佔用，可修改為其他可用 Port（建議範圍：16000-17000）。修改後需重新啟動設定介面才會生效。">?</span>
+          </label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <input class="form-control" id="server_port" type="number" min="1024" max="65535" value="" placeholder="16888" />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label for="proxy_server_port" class="col-sm-2 col-form-label">Proxy IP:PORT</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <input class="form-control" id="proxy_server_port" value="" />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label for="window_size" class="col-sm-2 col-form-label">瀏覽器視窗大小</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <input class="form-control" id="window_size" value="" />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label">允許不連續座位</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="disable_adjacent_seat">
+              <label class="form-check-label" for="disable_adjacent_seat">啟用</label>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label">隱藏部份圖片</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="hide_some_image">
+              <label class="form-check-label" for="hide_some_image">啟用</label>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label">擋掉 Facebook 連線</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="block_facebook_network">
+              <label class="form-check-label" for="block_facebook_network">啟用</label>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label">無圖形界面模式</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="headless">
+              <label class="form-check-label" for="headless">啟用</label>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label">輸出除錯訊息</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="verbose">
+              <label class="form-check-label" for="verbose">啟用</label>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label">顯示時間戳記</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="show_timestamp">
+              <label class="form-check-label" for="show_timestamp">啟用</label>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label">OCR</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="ocr_captcha_enable">
+              <label class="form-check-label" for="ocr_captcha_enable">啟用</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="ocr_captcha_image_source" class="col-sm-2 col-form-label">OCR圖片取得方式</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <select id="ocr_captcha_image_source" class="form-select" aria-label="Default select">
+              <option value="canvas">canvas</option>
+              <option value="NonBrowser">NonBrowser</option>
+            </select>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label">自動送出</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="ocr_captcha_force_submit">
+              <label class="form-check-label" for="ocr_captcha_force_submit">啟用</label>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label for="remote_url" class="col-sm-2 col-form-label">OCR Server URL</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <input class="form-control" id="remote_url" value="" />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label for="ocr_model_path" class="col-sm-2 col-form-label">自訂 OCR 模型</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <input class="form-control" id="ocr_model_path" value="" placeholder="例如：assets/ocr_model 或 C:\models\my_ocr" />
+            <div class="form-text">
+              自訂 OCR 模型<strong>資料夾</strong>路徑，資料夾內需包含 <code>custom.onnx</code> 和 <code>charsets.json</code>。支援相對路徑。若未填寫，將使用內建的 ddddocr 模型。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- tab 4 -->
+      <div class="tab-pane fade" id="verification-tab-pane" role="tabpanel" aria-labelledby="verification-tab" tabindex="2">
+
+        <div class="row mb-3">
+          <label for="user_guess_string" class="col-sm-2 col-form-label">使用者自定字典</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <textarea class="form-control" id="user_guess_string" rows="3" placeholder="多個答案請用分號分隔，例如：答案A;答案B;答案C"></textarea>
+            <div class="form-text">
+              系統偵測到驗證問題時會優先使用此處的答案。若未填寫且啟用「自動猜測驗證問題」，系統將嘗試自動推測答案。
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label">自動猜測驗證問題</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="auto_guess_options">
+              <label class="form-check-label" for="auto_guess_options">啟用</label>
+            </div>
+            <div class="form-text">
+              當未填寫「使用者自定字典」時，系統將嘗試從問題內容自動推測答案（如日期、時間等）。
+            </div>
+          </div>
+        </div>
+
+        <!-- 偵測到的驗證問題 (隱藏，檔案存在時才顯示) -->
+        <div class="alert alert-warning alert-dismissible fade" id="detected-question-alert" role="alert" style="display: none;">
+          <h5 class="alert-heading">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill me-2" viewBox="0 0 16 16">
+              <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </svg>
+            偵測到驗證問題！
+          </h5>
+          <hr>
+          <p class="mb-2"><strong>問題內容：</strong></p>
+          <div class="card bg-body-secondary">
+            <div class="card-body">
+              <pre id="detected-question-text" class="mb-0 text-body" style="white-space: pre-wrap; word-wrap: break-word;"></pre>
+            </div>
+          </div>
+          <hr>
+          <div class="d-flex gap-2 flex-wrap">
+            <button type="button" class="btn btn-sm search-engine-btn" id="search-google-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-google me-1" viewBox="0 0 16 16">
+                <path d="M15.545 6.558a9.4 9.4 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.7 7.7 0 0 1 5.352 2.082l-2.284 2.284A4.35 4.35 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.8 4.8 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.7 3.7 0 0 0 1.599-2.431H8v-3.08z"/>
+              </svg>
+              Google
+            </button>
+            <button type="button" class="btn btn-sm search-engine-btn" id="search-bing-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-bing me-1" viewBox="0 0 16 16">
+                <path d="M5 1v12.5L11 16l.5-1.5-2-1V2.5z"/>
+              </svg>
+              Bing
+            </button>
+            <button type="button" class="btn btn-sm search-engine-btn" id="search-perplexity-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-search me-1" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+              </svg>
+              Perplexity
+            </button>
+            <button type="button" class="btn btn-sm search-engine-btn" id="search-grok-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-lightning-charge me-1" viewBox="0 0 16 16">
+                <path d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z"/>
+              </svg>
+              Grok
+            </button>
+            <button type="button" class="btn btn-sm search-engine-btn" id="search-chatgpt-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chat-dots me-1" viewBox="0 0 16 16">
+                <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+                <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9 9 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.4 10.4 0 0 1-.524 2.318l-.003.011a11 11 0 0 1-.244.637c-.079.186.074.394.273.362a22 22 0 0 0 .693-.125m.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6-3.004 6-7 6a8 8 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a11 11 0 0 0 .398-2"/>
+              </svg>
+              ChatGPT
+            </button>
+            <button type="button" class="btn btn-sm search-engine-btn" id="search-claude-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-robot me-1" viewBox="0 0 16 16">
+                <path d="M6 12.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5M3 8.062C3 6.76 4.235 5.765 5.53 5.886a26.6 26.6 0 0 0 4.94 0C11.765 5.765 13 6.76 13 8.062v1.157a.93.93 0 0 1-.765.935c-.845.147-2.34.346-4.235.346s-3.39-.2-4.235-.346A.93.93 0 0 1 3 9.219zm4.542-.827a.25.25 0 0 0-.217.068l-.92.9a25 25 0 0 1-1.871-.183.25.25 0 0 0-.068.495c.55.076 1.232.149 2.02.193a.25.25 0 0 0 .189-.071l.754-.736.847 1.71a.25.25 0 0 0 .404.062l.932-.97a25 25 0 0 0 1.922-.188.25.25 0 0 0-.068-.495c-.538.074-1.207.145-1.98.189a.25.25 0 0 0-.166.076l-.754.785-.842-1.7a.25.25 0 0 0-.182-.135"/>
+                <path d="M8.5 1.866a1 1 0 1 0-1 0V3h-2A4.5 4.5 0 0 0 1 7.5V8a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1v-.5A4.5 4.5 0 0 0 10.5 3h-2zM14 7.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7.5A3.5 3.5 0 0 1 5.5 4h5A3.5 3.5 0 0 1 14 7.5"/>
+              </svg>
+              Claude
+            </button>
+          </div>
+          <div class="mt-2">
+            <small class="text-muted">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-info-circle me-1" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+              </svg>
+              提示：若自動答題失敗，可點擊上方按鈕搜尋答案，然後手動填入到「使用者自定字典」欄位中。
+            </small>
+          </div>
+        </div>
+
+        <!-- 優惠代碼 -->
+        <div class="row mb-3">
+          <label for="discount_code" class="col-sm-2 col-form-label">優惠代碼</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <input type="text" id="discount_code" value="" class="form-control" placeholder="優惠序號 / 加購序號 / 會員序號">
+            <small class="form-text text-muted">
+              適用於所有平台的優惠代碼（優惠序號、加購序號、會員序號等），程式會自動偵測並填入所有符合的輸入欄位。目前支援：TicketPlus、KKTIX
+            </small>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- tab 5 -->
+      <div class="tab-pane fade" id="autofill-tab-pane" role="tabpanel" aria-labelledby="autofill-tab" tabindex="2">
+
+        <!-- 通用個人資料區塊 -->
+        <div class="card mb-4">
+          <div class="card-header">
+            <h6 class="mb-0">通用個人資料</h6>
+          </div>
+          <div class="card-body">
+            <div class="row mb-3">
+              <label for="real_name" class="col-sm-2 col-form-label">真實姓名</label>
+              <div class="col-sm-10 col-lg-8 col-xl-6">
+                <input class="form-control" id="real_name" value="" placeholder="請輸入真實姓名" />
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label for="phone" class="col-sm-2 col-form-label">手機號碼</label>
+              <div class="col-sm-10 col-lg-8 col-xl-6">
+                <input class="form-control" id="phone" value="" placeholder="例如：0912345678" />
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label for="credit_card_prefix" class="col-sm-2 col-form-label">信用卡前六碼</label>
+              <div class="col-sm-10 col-lg-8 col-xl-6">
+                <input class="form-control" id="credit_card_prefix" value="" placeholder="例如：412345" maxlength="6" />
+                <div class="form-text">部分平台可能需要驗證信用卡前六碼</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="mb-4"/>
+
+        <!-- 平台帳號區塊 -->
+        <div class="row mb-3">
+          <label for="tixcraft_sid" class="col-sm-2 col-form-label">拓元家族 cookie (TIXUISID / IVUISID / TIXPUISID)</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <input class="form-control" id="tixcraft_sid" value="" />
+            <div class="alert alert-warning alert-dismissible fade mt-2" id="tixcraft-sid-warning" role="alert" style="display: none;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill me-2" viewBox="0 0 16 16">
+                <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+              </svg>
+              <strong>警告：</strong>您貼上的可能不是正確的 TIXUISID！TixCraft TIXUISID 不應該以 "g." 開頭。
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="ibonqware" class="col-sm-2 col-form-label">ibon cookie ibonqware</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <input class="form-control" id="ibonqware" value="" />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="facebook_account" class="col-sm-2 col-form-label">Facebook</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <form autocomplete="off">
+            <div class="input-group">
+              <span class="input-group-text" id="inputGroup-sizing-default">帳號</span>
+              <input type="text" id="facebook_account" value="" class="form-control" autocomplete="username">
+              <span class="input-group-text" id="inputGroup-sizing-default">密碼</span>
+              <input type="password" id="facebook_password" value="" class="form-control" autocomplete="current-password">
+            </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="kktix_account" class="col-sm-2 col-form-label">KKTIX</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <form autocomplete="off">
+            <div class="input-group">
+              <span class="input-group-text" id="inputGroup-sizing-default">帳號</span>
+              <input type="text" id="kktix_account" value="" class="form-control" autocomplete="username">
+              <span class="input-group-text" id="inputGroup-sizing-default">密碼</span>
+              <input type="password" id="kktix_password" value="" class="form-control" autocomplete="current-password">
+            </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="kham_account" class="col-sm-2 col-form-label">寬宏</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <form autocomplete="off">
+            <div class="input-group">
+              <span class="input-group-text" id="inputGroup-sizing-default">帳號</span>
+              <input type="text" id="kham_account" value="" class="form-control" autocomplete="username">
+              <span class="input-group-text" id="inputGroup-sizing-default">密碼</span>
+              <input type="password" id="kham_password" value="" class="form-control" autocomplete="current-password">
+            </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="ticketplus_account" class="col-sm-2 col-form-label">遠大</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <form autocomplete="off">
+            <div class="input-group">
+              <span class="input-group-text" id="inputGroup-sizing-default">帳號</span>
+              <input type="text" id="ticketplus_account" value="" class="form-control" autocomplete="username">
+              <span class="input-group-text" id="inputGroup-sizing-default">密碼</span>
+              <input type="password" id="ticketplus_password" value="" class="form-control" autocomplete="current-password">
+            </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="cityline_account" class="col-sm-2 col-form-label">cityline</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <div class="input-group">
+              <span class="input-group-text" id="inputGroup-sizing-default">帳號</span>
+              <input type="text" id="cityline_account" value="" class="form-control" placeholder="請輸入 Email 帳號">
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-3 bd-callout bd-callout-warning" id="cityline-login-hint" style="display: none;">
+          <div class="col">
+            <strong>⚠️ Cityline 登入說明（半自動模式）：</strong>
+            <ol class="mb-0 mt-2">
+              <li>程式會自動填入帳號（Email）</li>
+              <li>到信箱收取驗證碼並輸入</li>
+              <li>完成 Cloudflare Turnstile 驗證</li>
+              <li>驗證完成後，手動點擊「登入」按鈕</li>
+              <li>登入成功後，程式會自動偵測並繼續執行搶票流程</li>
+            </ol>
+          </div>
+        </div>
+
+            <div class="alert alert-warning">
+              <strong>⚠️ 安全警告：</strong>
+                將密碼保存到設定檔中可能會讓您的密碼被盜。
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- tab 6 -->
+      <div class="tab-pane fade" id="runtime-tab-pane" role="tabpanel" aria-labelledby="runtime-tab" tabindex="2">
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label">執行狀態</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <span id="maxbot_status"></span>
+            <button class="btn btn-primary" id="pause_btn">暫停搶票</button>
+            <button class="btn btn-primary" id="resume_btn">繼續搶票</button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="last_url" class="col-sm-2 col-form-label">執行網址</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <p class="form-control-plaintext" id="last_url"></p>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label">系統時間</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <span id="system_time"></span>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="idle_keyword" class="col-sm-2 col-form-label">系統時間 - <span class="text-danger">暫停</span>關鍵字</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <input type="text" class="form-control" id="idle_keyword" placeholder="例如：09:30:00;14:15:30">
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="resume_keyword" class="col-sm-2 col-form-label">系統時間 - <span class="text-success">繼續</span>關鍵字</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <input type="text" class="form-control" id="resume_keyword" placeholder="例如：09:35:00;14:20:30">
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="idle_keyword_second" class="col-sm-2 col-form-label">秒數 - <span class="text-danger">暫停</span>關鍵字</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <input type="text" class="form-control" id="idle_keyword_second" placeholder="例如：00;30;50">
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="resume_keyword_second" class="col-sm-2 col-form-label">秒數 - <span class="text-success">繼續</span>關鍵字</label>
+          <div class="col-sm-10 col-lg-8 col-xl-6">
+            <input type="text" class="form-control" id="resume_keyword_second" placeholder="例如：05;35;55">
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-sm-12">
+            <div class="accordion" id="accordionRuntimeHelp">
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRuntimeHelp" aria-expanded="false" aria-controls="collapseRuntimeHelp">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock me-2" viewBox="0 0 16 16"><path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/><path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/></svg>
+                    時間控制功能說明
+                  </button>
+                </h2>
+                <div id="collapseRuntimeHelp" class="accordion-collapse collapse">
+                  <div class="accordion-body">
+                    <strong>功能說明：</strong>
+                    <ul class="mb-3">
+                      <li><strong>系統時間關鍵字：</strong>使用 <code>HH:MM:SS</code> 格式（時:分:秒）</li>
+                      <li><strong>秒數關鍵字：</strong>只使用秒數 <code>SS</code> 格式（每分鐘的指定秒數觸發）</li>
+                      <li><strong>暫停功能：</strong>當系統時間符合暫停關鍵字時，自動暫停搶票動作</li>
+                      <li><strong>繼續功能：</strong>當系統時間符合繼續關鍵字時，自動恢復搶票動作</li>
+                    </ul>
+
+                    <div class="alert alert-success mb-3">
+                      <strong>📝 輸入格式範例：</strong>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <strong>系統時間：</strong>
+                          <ul class="mb-1">
+                            <li><code>09:30:00;15:55:00</code></li>
+                            <li><code>"09:30:00";"15:55:00"</code></li>
+                            <li><code>14:30:00</code> (單一時間)</li>
+                          </ul>
+                        </div>
+                        <div class="col-md-6">
+                          <strong>秒數：</strong>
+                          <ul class="mb-1">
+                            <li><code>00;30;50</code></li>
+                            <li><code>"00";"30";"50"</code></li>
+                            <li><code>30</code> (單一秒數)</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="alert alert-warning mb-0">
+                      <strong>注意事項：</strong>
+                      <ul class="mb-0">
+                        <li>時間格式必須精確，格式錯誤會導致功能失效</li>
+                        <li>程式會持續檢查系統時間，匹配到設定時間會立即執行對應動作</li>
+                        <li>建議搭配暫停與繼續關鍵字使用，避免程式一直處於暫停狀態</li>
+                        <li>秒數關鍵字會在每分鐘的指定秒數觸發，適合做週期性控制</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <hr/>
+    <div class="col-12">
+      <button class="btn btn-primary" id="run_btn">搶票</button>
+      <button class="btn btn-primary" id="save_btn">存檔</button>
+      <button class="btn btn-primary" id="reset_btn">重設為預設值</button>
+      <button class="btn btn-danger" id="exit_btn">結束</button>
+    </div>
+    <div class="col-12">
+      <span class="text-danger" id="run_btn_pressed_message"></span>
     </div>
   </div>
+  </div>
 
-  <script src="js/settings.js"></script>
-  <script>
-    // 這裡可以加入初始化代碼，確保按鈕功能正常連動
-    $(document).ready(function() {
-      console.log("Tickets for Allen UI Loaded.");
-    });
-  </script>
-
-  <div class="modal" id="message_modal" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">系統提示</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body"><p id="message_detail"></p></div>
+<div class="modal" id="message_modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title fs-5" id="message_modal_title">Tickets Hunter</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p id="message_detail"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
       </div>
     </div>
   </div>
+</div>
+
+  <script src="settings.js?v=2026021523"></script>
 </body>
 </html>
